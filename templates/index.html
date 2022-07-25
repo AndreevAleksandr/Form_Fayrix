@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="header">
+        <div class="container">
+            <div class="row -col-centered">
+                <div class="col-lg-7 col-md-10 col-12">
+                    <div class="title-head">
+                        <span class="title_head">{% block title %} Just click {% endblock %}</span>
+                        <br>
+                        <span class="title_head_br">We will find the right job for you</span>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form_content">
+        <div class="container">
+            <div class="row -col-centered">
+                <div class="col-lg-7 col-md-10 col-12">
+
+                    {% for msg in get_flashed_messages() %}
+                    <div class="flash">{{msg}}</div>
+                    {% endfor %}
+
+                    <form method="post" id="main_form" enctype="multipart/form-data">
+                        <div class="title_content_form">
+                            <label type="text" name="position" id="position" class="title_head__form" form="main_form">Position</label>
+                            <select name="position" method="GET" action />
+                            {% for position in position %}
+                            <option value="{{position}}" SELECTED>{{position}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="title_content_form">
+                            <label type="text" name="grade" id="grade" class="title_head__form" form="main_form">Grade</label>
+                            <select name="grade" method="GET" action />
+                            {% for grade in grade %}
+                            <option value="{{grade}}" SELECTED>{{grade}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="title_content_form">
+                            <label type="text" name="lvl_english" id="lvl_english" class="title_head__form" form="main_form">Level of English</label>
+                            <select name="lvl_english" method="GET" action />
+                            {% for lvl_english in lvl_english %}
+                            <option value="{{lvl_english}}" SELECTED>{{lvl_english}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+
+                            <hr>
+                        <div class="form_contact">
+                            <label type="text" name="contact" id="contact" class="title_contact">Drop us a line, and our HR will contact you</label>
+                            <input type="email" name="email" id="email" required placeholder="e-mail" class="form_contact-input" form="main_form"/>
+                            <input type="text" name="link" id="link" required placeholder="Telagramm / What'sApp"
+                            class="form_contact-input" form="main_form"/>
+                        </div>
+
+                        <div class="form_comment">
+                            <label type="text" name="comment" id="comment" class="title_comment" form="main_form">Have any questions? <br>Wants to share something, you can do it here:</label>
+                            <textarea name="comment" placeholder="" class="form-control" form="main_form">
+                            </textarea>
+                        </div>
+
+                        <div class="check_test">
+                            <label>
+                                <input name="test_task" id="test_task" type="checkbox" form="main_form">Are you ready to do the test task?
+                            </label>
+                        </div>
+
+                        <div class="down_resum">
+                            <input type="file" accept="application/pdf" name="file" id="input__file" class="input input__file">
+                            <label for="input__file" class="input__file-button">
+                                <span class="input__file-icon-wrapper"><img class="input__file-icon" src="../static/img/down_resum.svg" alt="You can download your resume here" width="35px"></span>
+                                <span class="input__file-button-text">You can download<br>your CV here </span>
+                            </label>
+                        </div>
+
+                        <div class="btn">
+                            <button type="submit" value="Submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let inputs = document.querySelectorAll('.input__file');
+    Array.prototype.forEach.call(inputs, function (input) {
+      let label = input.nextElementSibling,
+        labelVal = label.querySelector('.input__file-button-text').innerText;
+  
+      input.addEventListener('change', function (e) {
+        let countFiles = '';
+        if (this.files && this.files.length >= 1)
+          countFiles = this.files.length;
+  
+        if (countFiles)
+          label.querySelector('.input__file-button-text').innerText = 'Resume uploaded: ' + countFiles;
+        else
+          label.querySelector('.input__file-button-text').innerText = labelVal;
+      });
+    });
+    </script>
+
+
+{% endblock %}
